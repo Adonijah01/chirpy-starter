@@ -1,0 +1,131 @@
+<div class="tracker-container">
+  <div class="stats-grid">
+    <div class="stat-card" style="background: linear-gradient(145deg, #9fef00, #1a1a1a); color: white; border: 1px solid #9fef00;">
+      <img src="https://icons-for-free.com/iff/png/256/hackthebox-1330289840795787516.png" alt="HTB Logo" stye="height: 40px; margin-bottom: 10px;">
+      <div class="stat-label">HTB Machines Pwned</div>
+      <div class="stat-number" id="htb-count" data-value="{% if site.data.stats.htb_machines %}{{ site.data.stats.htb_machines }}{% else %}0{% endif %}" style="animation: pulse 2s infinite;">0</div>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(145deg, #1DB954, #191414); color: white; border: 1px solid #1DB954;">
+      <img src="https://tryhackme.com/img/favicon.png" alt="THM Logo" style="height: 40px; margin-bottom: 10px;">
+      <div class="stat-label">TryHackMe Rooms</div>
+      <div class="stat-number" id="thm-count" data-value="{% if site.data.stats.thm_rooms %}{{ site.data.stats.thm_rooms }}{% else %}0{% endif %}" style="animation: pulse 2s infinite;">0</div>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(145deg, #FF4500, #1a1a1a); color: white; border: 1px solid #FF4500;">
+      <img src="https://www.vulnhub.com/favicon.ico" alt="VulnHub Logo" style="height: 40px; margin-bottom: 10px;">
+      <div class="stat-label">VulnHub Machines</div>
+      <div class="stat-number" id="vulnhub-count" data-value="{% if site.data.stats.vulnhub_machines %}{{ site.data.stats.vulnhub_machines }}{% else %}0{% endif %}" style="animation: pulse 2s infinite;">0</div>
+    </div>
+  </div>
+</div>
+
+<style>
+.tracker-container {
+  background: #f8f9fa;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card img {
+  height: 50px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover img {
+  transform: scale(1.1);
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .tracker-container {
+    padding: 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: 1.5rem;
+  }
+}
+</style>
+
+<script>
+// Animate number counting with easing
+function animateValue(element, start, end, duration) {
+  let startTimestamp = null;
+  const easeOutQuart = x => 1 - Math.pow(1 - x, 4);
+  
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const easedProgress = easeOutQuart(progress);
+    const value = Math.floor(easedProgress * (end - start) + start);
+    element.textContent = value;
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
+// Initialize the tracker
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize counters with staggered animation
+  const htbCount = document.getElementById('htb-count');
+  const thmCount = document.getElementById('thm-count');
+  const vulnhubCount = document.getElementById('vulnhub-count');
+  
+  if (htbCount && thmCount && vulnhubCount) {
+    const htbValue = parseInt(htbCount.dataset.value) || 0;
+    const thmValue = parseInt(thmCount.dataset.value) || 0;
+    const vulnhubValue = parseInt(vulnhubCount.dataset.value) || 0;
+
+    // Stagger the animations
+    setTimeout(() => animateValue(htbCount, 0, htbValue, 2000), 0);
+    setTimeout(() => animateValue(thmCount, 0, thmValue, 2000), 300);
+    setTimeout(() => animateValue(vulnhubCount, 0, vulnhubValue, 2000), 600);
+  }
+});
+</script> 

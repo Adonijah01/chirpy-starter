@@ -1,0 +1,11 @@
+.hit-count {
+    font-weight: bold;
+    color: #666;
+    margin-left: 4px;
+}
+
+#hit-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+} 

@@ -1,0 +1,15 @@
+.hit-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 1rem;
+}
+
+.hit-count {
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.hit-counter i {
+    color: var(--text-muted);
+} 

@@ -1,0 +1,73 @@
+{% if page.active %}
+  <div class="restricted-content">
+    {%- assign char_limit = 1000 -%}
+    {%- capture raw_content -%}{{ page.content }}{%- endcapture -%}
+    {%- assign intro = raw_content | truncate: char_limit, '...' -%}
+
+    <!-- Preview Snippet -->
+    <div style="margin-bottom: 1.5em;">
+      {{ intro | markdownify }}
+    </div>
+
+    <!-- Active Machine Warning Box -->
+    <div class="restriction-message" style="
+      max-width: 540px;
+      margin: 2em auto;
+      padding: 1.2em 1.5em;
+      background: #0f1a12;
+      color: #33ff33;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-size: 1.05em;
+      box-shadow: 0 4px 10px rgba(0, 255, 0, 0.2);
+      border-left: 4px solid #33ff33;
+      border-radius: 8px;
+      text-align: left;
+    ">
+
+      <!-- Header -->
+      <div style="display: flex; align-items: center; gap: 0.8em; margin-bottom: 1em;">
+        <img 
+          src="https://icons-for-free.com/iff/png/256/hackthebox-1330289840795787516.png" 
+          alt="Hack The Box Logo" 
+          style="height: 40px; width: 40px; border-radius: 4px; border: 1px solid #33ff33; background: #222;" 
+        />
+        <span style="font-weight: bold; font-size: 1.15em;">[ HTB Active Machine ]</span>
+      </div>
+
+      <!-- Message Content -->
+      <p>
+        ⚠️ This machine is <strong>still active</strong> on <em>Hack The Box</em>. This write-up will be made public once the machine is retired.
+      </p>
+      <p>
+        🔗 Please refer to the 
+        <a 
+          href="https://help.hackthebox.com/en/articles/5188925-streaming-writeups-walkthrough-guidelines?ref=benheater.com" 
+          target="_blank" 
+          rel="noopener" 
+          style="color: #00ff99; text-decoration: underline;"
+        >
+          HTB Write-up Policy
+        </a>.
+      </p>
+
+      <!-- Optional Help Info -->
+      <p style="color: #00ff99; margin-top: 1em;">
+        💬 Need assistance? Use the contact options available on this site.
+      </p>
+
+      <!-- Closing Message -->
+      <div style="
+        margin-top: 1em;
+        padding: 0.7em 1em;
+        background: #192419;
+        color: #00ff99;
+        font-style: italic;
+        border-radius: 4px;
+      ">
+        💡 Keep digging — the root flag awaits those who persist!
+      </div>
+    </div>
+  </div>
+{% else %}
+  {{ content }}
+{% endif %}

@@ -8,6 +8,7 @@ description: "A walkthrough for hacking the vulnerable machine Kioptrix Level 1 
 active: false
 retire_date: 2025-05-10T00:00:00Z
 youtube_id: "https://www.youtube.com/watch?v=9DsBlRrmBRM&t=1005s"
+show_tracker: true
 
 ---
 
@@ -37,6 +38,7 @@ Identified IP address:
 ```bash
 192.168.10.171
 ```
+<!--restrict-here--->
 
 ### Step 2: Enumeration
 Run an Nmap scan to identify open ports and services:

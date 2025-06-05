@@ -1,0 +1,27 @@
+.custom-counter-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 1rem;
+}
+
+.custom-counter-wrapper i {
+    color: var(--primary-color);
+    font-size: 0.9em;
+}
+
+.custom-counter {
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 0.95em;
+}
+
+.counter-label {
+    color: var(--text-muted);
+    font-size: 0.85em;
+    text-transform: lowercase;
+} 

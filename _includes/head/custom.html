@@ -1,0 +1,74 @@
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://2833.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+<!-- Display GoatCounter pageviews -->
+<script>
+  // Function to update pageviews
+  function updatePageviews() {
+    const pv = document.getElementById('pageviews');
+    if (!pv) {
+      setTimeout(updatePageviews, 1000);
+      return;
+    }
+
+    // Get the current page path and clean it
+    const path = window.location.pathname.replace(/\/$/, ''); // Remove trailing slash
+    
+    // Set initial loading state
+    pv.innerHTML = '<i class="fas fa-spinner fa-spin small"></i>';
+    
+    // Fetch pageviews from GoatCounter API
+    const code = '2833';
+    // Use encodeURIComponent only once for the path
+    const apiUrl = `https://${code}.goatcounter.com/api/v0/stats/path?path=${encodeURIComponent(path)}`;
+    
+    // Add cache buster to prevent stale data
+    const cacheBuster = new Date().getTime();
+    const finalUrl = `${apiUrl}&_=${cacheBuster}`;
+    
+    fetch(finalUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (data && data.stats && data.stats[0] && data.stats[0].count) {
+        pv.textContent = data.stats[0].count;
+      } else {
+        pv.textContent = '0';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching pageviews:', error);
+      pv.textContent = '0';
+    });
+  }
+
+  // Try to update pageviews when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updatePageviews);
+  } else {
+    updatePageviews();
+  }
+
+  // Also try after a short delay to ensure all elements are rendered
+  setTimeout(updatePageviews, 1000);
+
+  // Update pageviews when the page becomes visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      updatePageviews();
+    }
+  });
+</script>
+
+{% include head/goatcounter.html %} 

@@ -2,3 +2,26 @@
 layout: home
 # Index page
 ---
+
+<div class="home-content">
+  <section class="cyber-tracker-section">
+    {% include cyber-tracker.html %}
+  </section>
+</div>
+
+<style>
+.home-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cyber-tracker-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>

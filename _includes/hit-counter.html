@@ -1,0 +1,6 @@
+{% if page.active != false %}
+<span class="hit-counter">
+  <i class="fas fa-eye"></i>
+  <span id="hit-counter" class="hit-count">{{ page.hits | default: 0 }}</span>
+</span>
+{% endif %} 

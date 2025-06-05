@@ -1,0 +1,165 @@
+<!-- Cyber Security Achievement Tracker -->
+{% if page.layout == 'home' %}
+<!-- Static version for homepage -->
+<div class="cyber-tracker-home">
+  {% include cyber-tracker-content.html %}
+</div>
+{% else %}
+<!-- Static version for posts -->
+{% if page.show_tracker %}
+  <div class="cyber-tracker-static">
+    {% include cyber-tracker-content.html %}
+  </div>
+{% endif %}
+{% endif %}
+
+<style>
+/* Common styles for both homepage and posts */
+.cyber-tracker-home,
+.cyber-tracker-static {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, sans-serif;
+  margin: 1rem 0;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.tracker-container {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.stat-card:hover {
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.motivation-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.motivation-label {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.motivation-quote {
+  font-style: italic;
+  color: #2c3e50;
+  line-height: 1.5;
+}
+
+@keyframes pulse {
+  0% { -webkit-transform: scale(1); transform: scale(1); }
+  50% { -webkit-transform: scale(1.05); transform: scale(1.05); }
+  100% { -webkit-transform: scale(1); transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .tracker-container {
+    padding: 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .cyber-tracker-home,
+  .cyber-tracker-static {
+    break-inside: avoid;
+  }
+}
+</style>
+
+<script>
+// Motivational quotes
+const quotes = [
+  "The only truly secure system is one that is powered off, cast in a block of concrete and sealed in a lead-lined room with armed guards.",
+  "Security is not a product, but a process.",
+  "The best way to predict the future is to implement it yourself.",
+  "In cybersecurity, the only constant is change.",
+  "The more you know, the more you realize you don't know.",
+  "Every system is hackable. The question is: how much time and resources will it take?",
+  "The best defense is a good offense.",
+  "Security is a journey, not a destination."
+];
+
+// Animate number counting
+function animateValue(element, start, end, duration) {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const value = Math.floor(progress * (end - start) + start);
+    element.textContent = value;
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
+// Initialize the tracker
+document.addEventListener('DOMContentLoaded', () => {
+  // Set random quote
+  const quoteElement = document.getElementById('motivation-text');
+  if (quoteElement) {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteElement.textContent = randomQuote;
+  }
+
+  // Initialize counters
+  const htbCount = document.getElementById('htb-count');
+  const thmCount = document.getElementById('thm-count');
+  const vulnhubCount = document.getElementById('vulnhub-count');
+  
+  if (htbCount && thmCount && vulnhubCount) {
+    const htbValue = parseInt(htbCount.dataset.value) || 0;
+    const thmValue = parseInt(thmCount.dataset.value) || 0;
+    const vulnhubValue = parseInt(vulnhubCount.dataset.value) || 0;
+
+    animateValue(htbCount, 0, htbValue, 2000);
+    animateValue(thmCount, 0, thmValue, 2000);
+    animateValue(vulnhubCount, 0, vulnhubValue, 2000);
+  }
+});
+</script> 

@@ -1,0 +1,68 @@
+{% if page.comments %}
+  <div class="post-comments">
+    {% if site.comments.provider == 'disqus' %}
+      <div id="disqus_thread"></div>
+      <script>
+        var disqus_config = function () {
+          this.page.url = "{{ page.url | absolute_url }}";
+          this.page.identifier = "{{ page.url | absolute_url }}";
+        };
+        (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://{{ site.comments.disqus.shortname }}.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    {% elsif site.comments.provider == 'utterances' %}
+      <script src="https://utteranc.es/client.js"
+              repo="{{ site.comments.utterances.repo }}"
+              issue-term="{{ site.comments.utterances.issue_term }}"
+              label="comment"
+              theme="github-dark"
+              crossorigin="anonymous"
+              async>
+      </script>
+    {% elsif site.comments.provider == 'giscus' %}
+      <div class="giscus-container">
+        <script src="https://giscus.app/client.js"
+                data-repo="{{ site.comments.giscus.repo }}"
+                data-repo-id="{{ site.comments.giscus.repo_id }}"
+                data-category="{{ site.comments.giscus.category }}"
+                data-category-id="{{ site.comments.giscus.category_id }}"
+                data-mapping="{{ site.comments.giscus.mapping }}"
+                data-strict="{{ site.comments.giscus.strict }}"
+                data-reactions-enabled="{{ site.comments.giscus.reactions_enabled }}"
+                data-emit-metadata="{{ site.comments.giscus.emit_metadata }}"
+                data-input-position="{{ site.comments.giscus.input_position }}"
+                data-theme="{{ site.comments.giscus.theme }}"
+                data-lang="{{ site.comments.giscus.lang }}"
+                crossorigin="anonymous"
+                async>
+        </script>
+      </div>
+    {% endif %}
+  </div>
+  <style>
+    .post-comments {
+      margin-top: 2rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border-color);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .giscus-container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    @media (max-width: 850px) {
+      .post-comments {
+        padding: 1rem;
+        max-width: 100%;
+      }
+    }
+  </style>
+{% endif %} 
